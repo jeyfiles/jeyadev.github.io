@@ -1,0 +1,611 @@
+/* ======================================
+   BLOG — Life, Books & Chlorine
+   Notebook / Journal Aesthetic
+   ====================================== */
+
+:root {
+  --cream:      #fdf8f0;
+  --cream-dark: #f5ede0;
+  --paper:      #fffdf7;
+  --ink:        #1c1c2e;
+  --ink-light:  #4a4a6a;
+  --ink-muted:  #8888aa;
+  --blue:       #2563a8;
+  --blue-light: #dbeafe;
+  --blue-mid:   #93c5fd;
+  --red:        #c0392b;
+  --yellow:     #fef08a;
+  --yellow-dark:#ca8a04;
+  --green:      #166534;
+  --green-light:#dcfce7;
+  --line-color: #d4c4a8;
+  --shadow:     rgba(28, 28, 46, 0.08);
+
+  --font-hand:  'Caveat', cursive;
+  --font-body:  'Lora', Georgia, serif;
+  --font-ui:    'DM Sans', sans-serif;
+
+  --max-width: 1100px;
+  --post-width: 680px;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.8;
+  min-height: 100vh;
+
+  /* Subtle paper texture via repeating lines */
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      var(--line-color) 31px,
+      var(--line-color) 32px
+    );
+  background-attachment: fixed;
+}
+
+/* ── Site Header ── */
+.site-header {
+  background: var(--ink);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(255,255,255,0.02) 10px,
+      rgba(255,255,255,0.02) 20px
+    );
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 48px 32px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Notebook rings at the top */
+.notebook-rings {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.notebook-rings span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+}
+
+.header-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: var(--blue-mid);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.site-title {
+  font-family: var(--font-hand);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 700;
+  text-align: center;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+
+.site-tagline {
+  font-family: var(--font-hand);
+  font-size: 20px;
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.site-nav {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.site-nav a {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.site-nav a:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* ── Layout ── */
+.main-wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .main-wrap { grid-template-columns: 1fr; }
+}
+
+/* ── Post Card ── */
+.post {
+  background: var(--paper);
+  border-radius: 4px;
+  box-shadow:
+    0 2px 4px var(--shadow),
+    0 8px 32px var(--shadow),
+    4px 4px 0 var(--line-color);
+  padding: 48px 52px 52px;
+  position: relative;
+  animation: slideUp 0.5s ease both;
+}
+
+/* Red margin line (notebook style) */
+.post::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 72px;
+  width: 2px;
+  height: 100%;
+  background: rgba(192, 57, 43, 0.25);
+  border-radius: 1px;
+}
+
+@media (max-width: 600px) {
+  .post { padding: 28px 24px 36px; }
+  .post::before { left: 44px; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Post Meta ── */
+.post-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.post-badge {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--blue-light);
+  color: var(--blue);
+  padding: 4px 12px;
+  border-radius: 100px;
+  letter-spacing: 0.3px;
+}
+
+.post-date {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+/* ── Post Title ── */
+.post-title {
+  font-family: var(--font-hand);
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.post-byline {
+  margin-bottom: 24px;
+}
+
+.swimmer-tag {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--blue);
+  font-weight: 500;
+}
+
+/* ── Ruled Divider ── */
+.ruled-divider {
+  height: 1px;
+  background: var(--line-color);
+  margin: 0 0 32px;
+  position: relative;
+}
+
+.ruled-divider::before {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--paper);
+  padding: 0 12px;
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+
+/* ── Post Body Typography ── */
+.post-body p {
+  margin-bottom: 1.4em;
+  color: var(--ink-light);
+}
+
+/* Drop cap for first paragraph */
+.post-body .drop-cap::first-letter {
+  font-family: var(--font-hand);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 0.75;
+  float: left;
+  margin: 8px 8px -4px 0;
+  color: var(--blue);
+}
+
+.post-body em {
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* ── Sticky Note Blockquote ── */
+blockquote.sticky-note {
+  background: var(--yellow);
+  border: none;
+  border-radius: 2px;
+  padding: 20px 24px;
+  margin: 28px -8px;
+  font-family: var(--font-hand);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--yellow-dark);
+  line-height: 1.4;
+  box-shadow:
+    2px 3px 0 rgba(0,0,0,0.08),
+    0 4px 12px rgba(202, 138, 4, 0.12);
+  position: relative;
+  transform: rotate(-0.8deg);
+}
+
+blockquote.sticky-note::before {
+  content: '"';
+  font-size: 60px;
+  line-height: 1;
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  color: rgba(202,138,4,0.3);
+  font-family: var(--font-hand);
+}
+
+blockquote.sticky-note--yellow {
+  transform: rotate(0.5deg);
+}
+
+/* ── Callout Box ── */
+.callout {
+  display: flex;
+  gap: 16px;
+  padding: 20px 24px;
+  border-radius: 8px;
+  margin: 28px 0;
+  border: 1.5px solid;
+}
+
+.callout-blue {
+  background: var(--blue-light);
+  border-color: var(--blue-mid);
+  color: var(--blue);
+}
+
+.callout-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.callout-text {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--blue);
+  line-height: 1.6;
+}
+
+.callout-text strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.callout-text ul {
+  padding-left: 20px;
+  margin-top: 4px;
+}
+
+.callout-text li {
+  margin-bottom: 4px;
+}
+
+/* ── Section Marker ── */
+.section-marker {
+  font-family: var(--font-hand);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--red);
+  text-align: center;
+  padding: 16px 0;
+  letter-spacing: 1px;
+  border-top: 1px dashed var(--line-color);
+  border-bottom: 1px dashed var(--line-color);
+  margin: 32px 0;
+}
+
+/* ── Highlight Box ── */
+.highlight-box {
+  background: var(--green-light);
+  border-left: 4px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  padding: 24px 28px;
+  margin: 28px 0;
+  position: relative;
+}
+
+.highlight-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.highlight-box p {
+  color: var(--green) !important;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  margin-bottom: 10px !important;
+}
+
+.highlight-box p strong {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+}
+
+.highlight-note {
+  font-style: italic;
+  opacity: 0.85;
+  font-size: 14px !important;
+  border-top: 1px solid rgba(22, 101, 52, 0.2);
+  padding-top: 10px;
+  margin-top: 12px !important;
+}
+
+/* ── Sign-off ── */
+.sign-off {
+  font-style: italic;
+  font-size: 19px;
+  color: var(--ink) !important;
+  border-top: 1px solid var(--line-color);
+  padding-top: 20px;
+  margin-top: 32px !important;
+}
+
+.post-signature {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  color: var(--ink-muted);
+  margin-top: 8px;
+  padding-left: 24px;
+}
+
+/* ── Post Footer / Tags ── */
+.post-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-color);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  background: var(--cream-dark);
+  border: 1px solid var(--line-color);
+  border-radius: 100px;
+  padding: 4px 12px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.tag:hover {
+  background: var(--blue-light);
+  color: var(--blue);
+  border-color: var(--blue-mid);
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 24px;
+  animation: slideUp 0.5s 0.15s ease both;
+}
+
+.sidebar-card {
+  background: var(--paper);
+  border-radius: 4px;
+  padding: 24px;
+  box-shadow:
+    0 2px 4px var(--shadow),
+    3px 3px 0 var(--line-color);
+}
+
+.sidebar-card h3 {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.sidebar-card h4 {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.sidebar-card p {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  background: var(--blue-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--line-color);
+  margin: 14px 0;
+}
+
+.book-item, .swim-item {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--ink-light) !important;
+}
+
+/* Blue sidebar card variant */
+.sidebar-card--blue {
+  background: var(--ink);
+  box-shadow: 0 2px 4px var(--shadow), 3px 3px 0 #2563a8;
+}
+
+.sidebar-card--blue h3,
+.sidebar-card--blue p {
+  color: white !important;
+}
+
+.sidebar-card--blue p { opacity: 0.7; }
+
+.sidebar-btn {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  background: white;
+  border-radius: 100px;
+  padding: 8px 20px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.sidebar-btn:hover {
+  background: var(--blue-light);
+  color: var(--blue);
+}
+
+/* ── Site Footer ── */
+.site-footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 32px 24px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.footer-doodle {
+  font-family: var(--font-hand);
+  font-size: 20px;
+  color: rgba(255,255,255,0.15);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.footer-note {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.5;
+  margin-top: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .post-title { font-size: 28px; }
+  blockquote.sticky-note { margin: 20px 0; transform: none; font-size: 19px; }
+  .callout { flex-direction: column; gap: 8px; }
+}
